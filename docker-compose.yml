@@ -14,14 +14,12 @@ services:
         - db
     db:
         image: mysql:8.0
-        restart: always
+        container_name: mysqldb
         environment:
-          MYSQL_DATABASE: ${DB_DATABASE}
-          MYSQL_USER: ${DB_USERNAME}
-          MYSQL_PASSWORD: ${DB_PASSWORD}
           MYSQL_ROOT_PASSWORD: root
-        command: mysqld --default-authentication-plugin=mysql_native_password
-        volumes:
-        - ./database/mysql-data:/var/lib/mysql:rw
+          MYSQL_DATABASE: transactions_db
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+          - "3306:3306"
 volumes:
   mysql-data:
