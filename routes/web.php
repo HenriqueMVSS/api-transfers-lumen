@@ -13,6 +13,10 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return "Hello world!";
-});
+// $router->get('/', function() => {
+//     return "Hello"});
+
+$router->get('/getTransfers', 'TransferController@index');
+
+$router->post('/transfers', 'TransferController@createTransfer');
+

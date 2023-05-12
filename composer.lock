@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92349cb28edd03fc664907cf9290705c",
+    "content-hash": "f9a30359ac31ae08ca240d41dfdb84c9",
     "packages": [
         {
             "name": "brick/math",
@@ -3033,6 +3033,172 @@
                 }
             ],
             "time": "2023-04-15T23:01:58+00:00"
+        },
+        {
+            "name": "starkbank/ecdsa",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/starkbank/ecdsa-php.git",
+                "reference": "1e6f3027f4c038d5a4a8eecfa93a96d2d0e8401b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/starkbank/ecdsa-php/zipball/1e6f3027f4c038d5a4a8eecfa93a96d2d0e8401b",
+                "reference": "1e6f3027f4c038d5a4a8eecfa93a96d2d0e8401b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/ellipticcurve.php"
+                ],
+                "psr-4": {
+                    "EllipticCurve\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "StarkBank",
+                    "email": "developers@starkbank.com",
+                    "homepage": "https://starkbank.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
+            "homepage": "https://github.com/starkbank/ecdsa-php",
+            "support": {
+                "issues": "https://github.com/starkbank/ecdsa-php/issues",
+                "source": "https://github.com/starkbank/ecdsa-php/tree/v2.0.2"
+            },
+            "time": "2022-10-27T21:55:02+00:00"
+        },
+        {
+            "name": "starkbank/sdk",
+            "version": "2.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/starkbank/sdk-php.git",
+                "reference": "f2df38cf9b5aa4b56c0dc25ade6584b148929761"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/starkbank/sdk-php/zipball/f2df38cf9b5aa4b56c0dc25ade6584b148929761",
+                "reference": "f2df38cf9b5aa4b56c0dc25ade6584b148929761",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "starkinfra/core": "^0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/init.php"
+                ],
+                "psr-4": {
+                    "StarkBank\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "StarkBank",
+                    "email": "developers@starkbank.com",
+                    "homepage": "https://starkbank.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SDK to facilitate PHP integrations with Stark Bank",
+            "homepage": "https://github.com/starkbank/sdk-php",
+            "keywords": [
+                "Bank",
+                "Banking",
+                "open",
+                "openbanking",
+                "sdk",
+                "starkbank"
+            ],
+            "support": {
+                "issues": "https://github.com/starkbank/sdk-php/issues",
+                "source": "https://github.com/starkbank/sdk-php/tree/v2.13.0"
+            },
+            "time": "2023-05-03T22:59:11+00:00"
+        },
+        {
+            "name": "starkinfra/core",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/starkinfra/core-php.git",
+                "reference": "15049894f54d752721492492bf551c8461892583"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/starkinfra/core-php/zipball/15049894f54d752721492492bf551c8461892583",
+                "reference": "15049894f54d752721492492bf551c8461892583",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "starkbank/ecdsa": "^2.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/starkcore.php"
+                ],
+                "psr-4": {
+                    "StarkCore\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "StarkInfra",
+                    "email": "help@starkbank.com",
+                    "homepage": "https://starkinfra.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Basic SDK functionalities for the starkbank and starkinfra SDKs",
+            "homepage": "https://github.com/starkinfra/core-php",
+            "keywords": [
+                "Bank",
+                "Banking",
+                "infra",
+                "open",
+                "openbanking",
+                "stark",
+                "starkinfra"
+            ],
+            "support": {
+                "issues": "https://github.com/starkinfra/core-php/issues",
+                "source": "https://github.com/starkinfra/core-php/tree/v0.1.0"
+            },
+            "time": "2023-04-26T21:27:15+00:00"
         },
         {
             "name": "symfony/console",
