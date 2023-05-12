@@ -9,18 +9,11 @@ use StarkBank\Settings;
 class TransferController extends Controller
 {
     public function __construct() {
-        $privateKeyContent = "
-        -----BEGIN EC PRIVATE KEY-----
-        MHQCAQEEIFzE9cS4LV6NeEGCE8P9QRWB9YCr0+MkncNJz7Vixp3UoAcGBSuBBAAK
-        oUQDQgAEalGaJ1m9bMKSq8zIZX/2FQbJQw17s6L0TkUObvHxXaUwNw9OStkbP3vY
-        w2WJG1ljOjU2hIB1OtCETHP+JEdAZQ==
-        -----END EC PRIVATE KEY-----
-        ";
 
         $user = new Project([
             "environment" => env('STARKBANK_ENVIRONMENT'),
             "id" => env('STARKBANK_ID'),
-            "privateKey" => $privateKeyContent
+            "privateKey" => env('STARKBANK_PRIVATE_KEY')
         ]);
         Settings::setUser($user);
     }
