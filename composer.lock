@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9a30359ac31ae08ca240d41dfdb84c9",
+    "content-hash": "5713193d1e5116878fb704c7d559c78a",
     "packages": [
         {
             "name": "brick/math",
@@ -3199,6 +3199,66 @@
                 "source": "https://github.com/starkinfra/core-php/tree/v0.1.0"
             },
             "time": "2023-04-26T21:27:15+00:00"
+        },
+        {
+            "name": "starkinfra/sdk",
+            "version": "0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/starkinfra/sdk-php.git",
+                "reference": "bc3cb5c2efa88ab42a444bf0772a0feee4cbfd0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/starkinfra/sdk-php/zipball/bc3cb5c2efa88ab42a444bf0772a0feee4cbfd0a",
+                "reference": "bc3cb5c2efa88ab42a444bf0772a0feee4cbfd0a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1",
+                "starkinfra/core": "^0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StarkInfra\\": "src/",
+                    "EllipticCurve\\": "vendor/starkbank/ecdsa/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "StarkInfra",
+                    "email": "help@starkbank.com",
+                    "homepage": "https://starkinfra.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SDK to facilitate PHP integrations with the Stark Infra API",
+            "homepage": "https://github.com/starkinfra/sdk-php",
+            "keywords": [
+                "Bank",
+                "Banking",
+                "card",
+                "infra",
+                "issuing",
+                "open",
+                "openbanking",
+                "sdk",
+                "starkinfra"
+            ],
+            "support": {
+                "issues": "https://github.com/starkinfra/sdk-php/issues",
+                "source": "https://github.com/starkinfra/sdk-php/tree/v0.8.0"
+            },
+            "time": "2023-05-11T17:43:34+00:00"
         },
         {
             "name": "symfony/console",
