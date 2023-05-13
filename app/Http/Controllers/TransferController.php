@@ -1,14 +1,20 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\WebhookController;
+
 use StarkBank\Transfer;
 use StarkBank\Project;
 use StarkBank\Settings;
 
 class TransferController extends Controller
 {
-    public function __construct() {
+    private $webhookController;
+
+    public function __construct(WebhookController $webhookController)
+    {
+        $this->webhookController = $webhookController;
+
         $user = new Project([
             "environment" => env('STARKBANK_ENVIRONMENT'),
             "id" => env('STARKBANK_ID'),
@@ -19,7 +25,14 @@ class TransferController extends Controller
 
     public function index()
     {
-        $transfers = Transfer::query([]);
+        $index = 0;
+        $transfers = [];
+        $allTransfers = Transfer::query([]);
+
+        foreach($allTransfers as $transfer){
+            $transfers[$index] = $transfer;
+            $index++;
+        }
 
         return response()->json($transfers);
     }
@@ -33,6 +46,7 @@ class TransferController extends Controller
 
     public function createTransfer(Request $request)
     {
+        $index = 0;
         $amount = $request->input('amount');
         $bankCode = $request->input('bankCode');
         $branchCode = $request->input('branchCode');
@@ -50,6 +64,11 @@ class TransferController extends Controller
                 'name' => $name,
             ])
         ]);
+
+        $transferId = $transfer[$index]->id;
+        $transferStatus = $transfer[$index]->status;
+
+        $this->webhookController->createWebhook($transferId, $transferStatus);
 
         return response()->json($transfer, 201);
     }

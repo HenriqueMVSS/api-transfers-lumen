@@ -13,9 +13,11 @@
 |
 */
 
-$router->get('/getTransfers', 'TransferController@index');
-
+$router->get('/', 'TransferController@index');
 $router->get('/getTransferById/{id}', 'TransferController@getTransferById');
-
 $router->post('/createTransfer', 'TransferController@createTransfer');
+
+$router->get('/webhooks/', 'WebhookController@getWebhooks');
+$router->get('/webhook/{id}', 'WebhookController@getWebhookById');
+
 
