@@ -13,10 +13,9 @@
 |
 */
 
-// $router->get('/', function() => {
-//     return "Hello"});
-
 $router->get('/getTransfers', 'TransferController@index');
 
-$router->post('/transfers', 'TransferController@createTransfer');
+$router->get('/getTransferById/{id}', 'TransferController@getTransferById');
+
+$router->post('/createTransfer', 'TransferController@createTransfer');
 

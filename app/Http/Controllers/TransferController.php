@@ -9,7 +9,6 @@ use StarkBank\Settings;
 class TransferController extends Controller
 {
     public function __construct() {
-
         $user = new Project([
             "environment" => env('STARKBANK_ENVIRONMENT'),
             "id" => env('STARKBANK_ID'),
@@ -20,9 +19,16 @@ class TransferController extends Controller
 
     public function index()
     {
-        $transfers = Transfer::query();
-        return response()->json($transfers);
+        $transfers = Transfer::query([]);
 
+        return response()->json($transfers);
+    }
+
+    public function getTransferById($id)
+    {
+        $transfer = Transfer::get($id);
+
+        return response()->json($transfer);
     }
 
     public function createTransfer(Request $request)
