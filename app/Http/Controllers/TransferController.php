@@ -1,8 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Transfers;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\WebhookController;
+use Illuminate\Support\Facades\Storage;
+
+use League\Flysystem\AwsS3V3\PortableVisibilityConverter;
 
 use StarkBank\Transfer;
 use StarkBank\Project;
@@ -10,12 +14,8 @@ use StarkBank\Settings;
 
 class TransferController extends Controller
 {
-    private $webhookController;
-
-    public function __construct(WebhookController $webhookController)
+    public function __construct()
     {
-        $this->webhookController = $webhookController;
-
         $user = new Project([
             "environment" => env('STARKBANK_ENVIRONMENT'),
             "id" => env('STARKBANK_ID'),
@@ -30,7 +30,7 @@ class TransferController extends Controller
         $transfers = [];
         $allTransfers = Transfer::query([]);
 
-        foreach($allTransfers as $transfer){
+        foreach($allTransfers as $transfer) {
             $transfers[$index] = $transfer;
             $index++;
         }
@@ -66,11 +66,36 @@ class TransferController extends Controller
             ])
         ]);
 
-        $transferId = $transfer[$index]->id;
-        $transferStatus = $transfer[$index]->status;
+        if ($transfer[$index]->status !== 'created') {
+            response()->json(['error' => 'Transfer failed'], 500);
+            return redirect(env('ENDPOINT_URL'));
+        }
 
-        $this->webhookController->createWebhook($transferId, $transferStatus);
+        $pdf = $this->getTransferPdf($transfer[$index]->id);
+        $pdfFilename = $this->generatePdfFilename();
+        Storage::disk('s3')->put($pdfFilename, $pdf);
 
-        return response()->json($transfer, 201);
+        $transfers = new Transfers();
+        $transfers->transferId = $transfer[$index]->id;
+        $transfers->transferStatus = $transfer[$index]->status;
+        $transfers->updateHistory = $transfer[$index]->updated;
+        $transfers->pdfUrl = Storage::disk('s3')->url($pdfFilename);
+        $transfers->save();
+
+        response()->json(['message' => 'Payment created successfully']);
+
+        return redirect(env('ENDPOINT_URL'));
+    }
+
+    public function getTransferPdf($transferId)
+    {
+        $pdf = Transfer::pdf($transferId);
+        return $pdf;
+    }
+
+    public function generatePdfFilename()
+    {
+        $pdfFilename = 'transfer_' . time() . '_' . uniqid() . '.pdf';
+        return $pdfFilename;
     }
 }

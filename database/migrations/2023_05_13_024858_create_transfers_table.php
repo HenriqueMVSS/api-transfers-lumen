@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
-            $table->string('amount');
-            $table->string('bankCode');
-            $table->string('branchCode');
-            $table->string('accountNumber');
-            $table->string('taxId');
-            $table->string('name');
+            $table->string('transferId');
+            $table->string('transferStatus');
+            $table->string('updateHistory');
+            $table->string('pdfUrl');
             $table->timestamps();
         });
     }
