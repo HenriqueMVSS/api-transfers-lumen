@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transfers;
+use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\TransactionsController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,8 +16,14 @@ use StarkBank\Settings;
 
 class TransferController extends Controller
 {
-    public function __construct()
+    private $webhook;
+
+    public function __construct(
+        WebhookController $webhookController
+        )
     {
+        $this->webhook = $webhookController;
+
         $user = new Project([
             "environment" => env('STARKBANK_ENVIRONMENT'),
             "id" => env('STARKBANK_ID'),
@@ -28,11 +36,15 @@ class TransferController extends Controller
     {
         $index = 0;
         $transfers = [];
-        $allTransfers = Transfer::query([]);
+        $allTransfers = Transfer::query();
 
         foreach($allTransfers as $transfer) {
             $transfers[$index] = $transfer;
             $index++;
+        }
+
+        foreach($transfers as $transfer) {
+            $this->webhook->webhookSavedHistoryAndStatus($transfer->id, $transfer->status);
         }
 
         return response()->json($transfers);
@@ -67,7 +79,6 @@ class TransferController extends Controller
         ]);
 
         if ($transfer[$index]->status !== 'created') {
-            response()->json(['error' => 'Transfer failed'], 500);
             return redirect(env('ENDPOINT_URL'));
         }
 
@@ -82,7 +93,7 @@ class TransferController extends Controller
         $transfers->pdfUrl = Storage::disk('s3')->url($pdfFilename);
         $transfers->save();
 
-        response()->json(['message' => 'Payment created successfully']);
+        $this->webhook->createdWebhook();
 
         return redirect(env('ENDPOINT_URL'));
     }

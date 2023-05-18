@@ -13,11 +13,11 @@
 |
 */
 
-$router->get('/', 'TransferController@index');
+$router->get('/', 'TransactionsController@index');
 
-$router->get('/getTransferById/{id}', 'TransferController@getTransferById');
+$router->get('/getTransferById/{id}', 'TransactionsController@getTransferById');
 
-$router->post('/createTransfer', 'TransferController@createTransfer');
+$router->post('/createTransfer', 'TransactionsController@createTransfer');
 
 
 

@@ -1,7 +1,7 @@
-<h1 align="center"> API de transferência bancaria.</h1>
+<h1 align="center">API de Transferência Bancária</h1>
 
 <p align="center">
- A API possui um endpoint para solicitação de um pagamento via transferência, e caso a transferência seja bem sucedida ela armazena a URL do comprovante em PDF no banco de dados e na Amazon S3, é utilizada a Api da Stark Bank para realizar a transferência, obter as transferências que foram realizadas e as informações sobre as mesmas. Foi desenvolvida utilizando o framework Lumen com container Docker. <br/><br/>
+  A API possui um endpoint para solicitação de um pagamento via transferência, e caso a transferência seja bem-sucedida, ela armazena a URL do comprovante em PDF no banco de dados e na Amazon S3. É utilizada a API da Stark Bank para realizar a transferência, obter as transferências que foram realizadas e as informações sobre as mesmas. Foi desenvolvida utilizando o framework Lumen com container Docker. <br/><br/>
 </p>
 
 <p align="center">
@@ -18,115 +18,66 @@
 
 <hr><br><br>
 
-
 ## 🚀 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- Laravel/Lumen Versão LTS 
+- Laravel/Lumen (Versão LTS)
 - Docker/Docker-compose
 - Composer
 - Amazon S3
 - Git e Github
- <br> <br>
+
+<br><br>
+
 ## 💻 Projeto
 
-Passos para execução do projeto: <br>
+Passos para execução do projeto:
 
-Através de algum terminal execute o seguinte comando: <br><br>
-`git clone https://github.com/HenriqueMVSS/api-transfers-lumen` <br>
+1. Clone o repositório em seu ambiente local:
 
- ### Ferramentas obrigatórias <br>
-    
-    - PHP ^8.0
-    - Docker/Docker-compose
-    - Composer
-    - Mysql
-    - Postman ou Insomnia
-<br>
+        git clone https://github.com/HenriqueMVSS/api-transfers-lumen
 
-### CONFIGURAÇÃO DO AMBIENTE
+ 2. Certifique-se de ter as seguintes ferramentas instaladas:
 
-    Tem um arquivo com o nome .env-example, iremos fazer uma cópia desse arquivo e renomear a copia para .env nele iremos preencher as variaveis ambientes de acordo com as sua configuração.
+- PHP >=8.1
+- Docker/Docker-compose
+- Composer
+- MySQL
+- Postman ou Insomnia
 
-- ### Antes de prosseguir  com os próximos passos, verifica se as ferramentas citadas acima estão instaladas. <br><br>
+3. Faça uma cópia do arquivo `.env-example` e renomeie a cópia para `.env`. Preencha as variáveis de ambiente de acordo com a configuração do seu ambiente.
 
-### Após concluir o clone do repositório: <br>
+4. Instale as dependências do projeto executando o seguinte comando na raiz do projeto:
 
-    Certifique-se que tem o composer instalado em sua máquina, em um terminal na raiz do projeto execute o comando composer install para instalar as dependências do projeto.
+        composer install
 
-### Inicialização da aplicação: <br>
+5. Inicie a aplicação utilizando o Docker Compose. Execute o seguinte comando na raiz do projeto:
 
-    Certifique-se que tem docker e o docker-compose instalados em sua máquina, em um terminal na raiz do projeto docker-compose --env-file .env up --build para criar o container e realizar uma cópia atualizada da aplicação para o container.
-<br>
+        docker-compose --env-file .env up --build
 
-<p align="center">
-     Print-screen do terminal após execução do comando acima: <hr><br>
-  <p align="center">
-    <img alt="mural" src="assets/images/create-container-docker.png" width="550px">
-  </p>
-</p>
- <br> <br>
+6. Com o container em execução, verifique a ID ou o nome do container da aplicação executando o comando:
 
-    Com o container em execução, no terminal executa docker ps para listar os containers ativos, e localiza a ID referente ao container da aplicação ou o nome do container e executa o comando docker exec -it AQUI VOCÊ VAI COLOCAR O ID OU NOME DO CONTAINER sh para entrar no terminal do container.
-    
-<br>
-    <p align="center">
-     Print-screen do terminal após execução do comando acima: <hr><br>
-  <p align="center">
-    <img alt="mural" src="assets/images/docker-ps.png" width="550px">
-  </p>
-</p>
+        docker ps
 
-    Nesse exemplo do print acima optei por utilizar o ID do container, ficando o comando dessa forma docker exec -it ef65294a5dc9 sh
-<br>
+Em seguida, utilize o comando `docker exec -it <ID ou nome do container> sh` para entrar no terminal do container.
 
-### Criando a de tabela no banco de dados do container <br>
+7. No terminal do container, execute o comando `php artisan migrate` para criar as tabelas no banco de dados.
 
-    Após execução do comando acima, executa php artisan migrate para criação das tabelas no banco de dados.
+8. Com a aplicação em execução, utilize o Postman ou o Insomnia para criar transferências através de uma requisição POST. Os dados obrigatórios para criar uma transferência são:
 
-<br>
-    <p align="center">
-     Print-screen do terminal após execução do comando acima: <hr><br>
-  <p align="center">
-    <img alt="mural" src="assets/images/migrate.png" width="550px">
-  </p>
-</p>   
-<br>
-
-### Executando a aplicação
-
-    Após os passos acima e com o Postman ou Insomnia instalados, vamos utilizar-los para criação das transferências, através de uma requisição POST, os dados obrigatórios para criar uma transferência são:
-
-    {
+        {
         "amount" : 3552,
         "bankCode" : "20018183",
         "branchCode" : "2201",
         "accountNumber" : "10000-0",
         "taxId" : "113.188.616-08",
-        "name" : "Henrique Silva" 
-    }
+        "name" : "Henrique Silva"
+        }
 
-  
-<br>
-    <p align="center">
-     Nesse exemplo abaixo utilizei o postman para criação da transferência: <hr><br>
-  <p align="center">
-    <img alt="mural" src="assets/images/create-transfer.png" width="550px">
-  </p>
-</p>   
-<br>  
 
-    Acabamos de criar nossa primeira transferência, se for bem sucedida iremos ter o seguinte retorno: 
-<br>
-<p align="center">
-    <img alt="mural" src="assets/images/transfer.png" width="550px">
-  </p>
-
-    Além da transferência que criamos, a api também ira fazer uma requisição trazendo todas as transferências que foram realizadas anteriormente.
+9. Além de criar uma transferência, a API também irá retornar todas as transferências que foram realizadas anteriormente.
 
 ## :memo: Licença
 
 Esse projeto está sob a licença MIT.
-
----
