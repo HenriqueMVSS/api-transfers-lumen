@@ -76,7 +76,7 @@ Em seguida, utilize o comando `docker exec -it <ID ou nome do container> sh` par
         }
 
 
-9. Além de criar uma transferência, a API também irá retornar todas as transferências que foram realizadas anteriormente.
+9. Além de criar uma transferência, a API também irá retornar todas as transferências que foram realizadas anteriormente e atualizar o seu status e historico de atualização.
 
 ## :memo: Licença
 
